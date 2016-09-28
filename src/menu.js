@@ -22,6 +22,7 @@ var Menu = React.createClass({
 
   toggleMenu: function(evt) {
     evt.preventDefault();
+    evt.stopPropagation();
 
     if(this.props.method === 'hover'){
       return;
@@ -32,11 +33,81 @@ var Menu = React.createClass({
     });
   },
 
-  childChanged: function childChanged(action) {
-    if (action === 'TOGGLE_MENU') {
+  childChanged: function childChanged(action, key) {
+    var childButtons = getChildren(this.props.children).child;
+
+    this.setState({
+      focused: 0
+    });
+
+    if (action === "TOGGLE_MENU") {
       this.setState({
         isOpen: !this.state.isOpen
       });
+    } else if (action === "CLOSE_MENU") {
+      if (this.state.isOpen) {
+        this.setState({
+          isOpen: false
+        });
+      }
+    } else if (action === "MAIN_ARROW_UP") {
+      if (childButtons.length > 0) {
+        var ele = document.getElementById(childButtons[0].props.id);
+        ele.focus();
+        this.setState({
+          focused: 0
+        });
+      }
+    } else if (action === "CHILD_ARROW_UP") {
+      if (childButtons.length > 1 && (this.state.focused < childButtons.length - 1)) {
+        var nextItem = parseInt(this.state.focused) + 1;
+        var ele = document.getElementById(childButtons[nextItem].props.id);
+        ele.focus();
+        this.setState({
+          focused: nextItem
+        });
+      } else if (this.state.focused == childButtons.length - 1) {
+        var ele = document.getElementById(childButtons[0].props.id);
+        ele.focus();
+        this.setState({
+          focused: 0
+        });
+      }
+    } else if (action === "CHILD_ARROW_DOWN") {
+      if (this.state.focused == 0 ) {
+        var nextItem = childButtons.length - 1;
+        var ele = document.getElementById(childButtons[nextItem].props.id);
+        ele.focus();
+        this.setState({
+          focused: nextItem
+        });
+      } else {
+        var nextItem = parseInt(this.state.focused) - 1;
+        var ele = document.getElementById(childButtons[nextItem].props.id);
+        ele.focus();
+        this.setState({
+          focused: nextItem
+        });
+      }
+    } else if (action === "FOCUS_MAIN") {
+        if (this.state.isOpen) {
+          this.setState({
+            isOpen: false
+          });
+        }
+        var ele = document.getElementById('mfb-main-button');
+        ele.focus();
+        this.setState({
+          focused: 0
+        });
+    } else if (action === "CHILD_FOCUS") {
+      if (!this.state.isOpen) {
+        var ele = document.getElementById('mfb-main-button');
+        ele.focus();
+        this.setState({
+          focused: 0
+        });
+      }
     }
   },
 
@@ -54,9 +125,7 @@ var Menu = React.createClass({
     for (var i = 0; i < buttons.child.length; i++) {
       var child = React.cloneElement(buttons.child[i], {
         key: i,
-        index: i,
-        callBackParent: that.childChanged,
-        totalChildCount: buttons.child.length
+        callBackParent: that.childChanged
       });
       childButtons.push(child);
     }

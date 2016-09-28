@@ -19,15 +19,22 @@ var ChildButton = React.createClass({
       return;
     }
 
-    if (evt.key === 'Enter' || evt.key === ' ' || evt.key === 'Escape') {
+    if (evt.key === "Enter" || evt.key === " ") {
       evt.preventDefault();
-      this.props.callBackParent('TOGGLE_MENU');
+      this.props.callBackParent("TOGGLE_MENU");
       this.props.onKeyDown(evt, this.props.label);
-    } else if (evt.key === 'Tab') {
-      if (this.props.index === (this.props.totalChildCount - 1)) {
-        this.props.callBackParent('TOGGLE_MENU');
-      }
+    } else if (evt.key === "ArrowUp") {
+      this.props.callBackParent("CHILD_ARROW_UP");
+    } else if (evt.key === "ArrowDown") {
+      this.props.callBackParent("CHILD_ARROW_DOWN");
+    } else if (evt.key === "Tab" || evt.key === "Escape") {
+      evt.preventDefault();
+      this.props.callBackParent("FOCUS_MAIN");
     }
+  },
+
+  onFocus: function onFocus() {
+    this.props.callBackParent('CHILD_FOCUS');
   },
 
   render: function(){
@@ -38,12 +45,13 @@ var ChildButton = React.createClass({
     return (
       <li>
         <a href={this.props.href}
-           id={this.props.label}
+           id={this.props.id}
            data-mfb-label={this.props.label}
            onClick={this.handleOnClick}
            className={className}
            onKeyDown={this.handleOnKeyDown}
-           data-focusable={this.props.focus}>
+           data-focusable={this.props.focus}
+           onFocus={this.onFocus}>
           <i className={iconClass}></i>
         </a>
       </li>

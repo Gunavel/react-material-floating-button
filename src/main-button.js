@@ -16,11 +16,15 @@ var MainButton = React.createClass({
   },
 
   handleOnKeyDown: function handleOnKeyDown(evt) {
-    
-    if (evt.key === 'Enter' || evt.key === ' ') {
+    if (evt.key === "Enter" || evt.key === " ") {
       evt.preventDefault();
-      this.props.callBackParent('TOGGLE_MENU');
+      this.props.callBackParent("TOGGLE_MENU");
+    } else if (evt.key === "Tab") {
+      this.props.callBackParent("CLOSE_MENU");
+    } else if (evt.key === "ArrowUp") {
+      this.props.callBackParent("MAIN_ARROW_UP");
     }
+
     this.props.onKeyDown(evt, this.props.label);
   },
 
