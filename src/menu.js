@@ -36,10 +36,6 @@ var Menu = React.createClass({
   childChanged: function childChanged(action, key) {
     var childButtons = getChildren(this.props.children).child;
 
-    this.setState({
-      focused: 0
-    });
-
     if (action === "TOGGLE_MENU") {
       this.setState({
         isOpen: !this.state.isOpen
