@@ -10,7 +10,7 @@ var ChildButton = React.createClass({
     {
       return;
     }
-
+    this.props.callBackParent("CLOSE_MENU");
     this.props.onClick();
   },
 
