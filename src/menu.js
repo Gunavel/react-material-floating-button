@@ -107,6 +107,19 @@ var Menu = React.createClass({
     }
   },
 
+  componentDidMount: function componentDidMount() {
+    let overlayElement = document.getElementById('mfb').getElementsByClassName('mfb')[0];
+    let that = this;
+    overlayElement.onclick = function(e) {
+      e.preventDefault();
+      if (that.state.isOpen) {
+        that.setState({
+          isOpen: false
+        });
+      }
+    };
+  },
+
   render: function() {
     var classes = getClasses(this.props);
     var buttons = getChildren(this.props.children);
@@ -127,16 +140,19 @@ var Menu = React.createClass({
     }
 
     return (
-      <ul className={classes}
-          data-mfb-toggle={this.props.method}
-          data-mfb-state={this.state.isOpen ? 'open' : 'closed'}>
-        <li className="mfb-component__wrap">
-          {main}
-          <ul className="mfb-component__list">
-            {childButtons}
-          </ul>
-        </li>
-      </ul>
+      <div id="mfb">
+        <div className={this.state.isOpen ? 'mfb mfb-window-overlay' : 'mfb'}></div>
+        <ul className={classes}
+            data-mfb-toggle={this.props.method}
+            data-mfb-state={this.state.isOpen ? 'open' : 'closed'}>
+          <li className="mfb-component__wrap">
+            {main}
+            <ul className="mfb-component__list">
+              {childButtons}
+            </ul>
+          </li>
+        </ul>
+      </div>
     );
   }
 });

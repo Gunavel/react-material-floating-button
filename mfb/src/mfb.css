@@ -89,6 +89,19 @@
 .mfb-component *, .mfb-component--tl *, .mfb-component--tr *, .mfb-component--bl *, .mfb-component--br *, .mfb-component *:before, .mfb-component--tl *:before, .mfb-component--tr *:before, .mfb-component--bl *:before, .mfb-component--br *:before, .mfb-component *:after, .mfb-component--tl *:after, .mfb-component--tr *:after, .mfb-component--bl *:after, .mfb-component--br *:after {
   box-sizing: inherit; }
 
+.mfb-window-overlay {
+  position: fixed;
+  z-index: 8998;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  opacity: 0.3;
+  background: white;
+  justify-content: center;
+}
+
 /*------------------------------------*\
     #BASE | Modifiers
 \*------------------------------------*/
