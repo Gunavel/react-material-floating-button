@@ -11,7 +11,8 @@ var Menu = React.createClass({
   propTypes: {
     effect: React.PropTypes.oneOf(['zoomin', 'slidein', 'slidein-spring', 'fountain']).isRequired,
     position: React.PropTypes.oneOf(['tl', 'tr', 'bl', 'br']).isRequired,
-    children: childrenValidator
+    children: childrenValidator,
+    overlay: React.PropTypes.bool
   },
 
   getInitialState: function() {
@@ -141,7 +142,7 @@ var Menu = React.createClass({
 
     return (
       <div id="mfb">
-        <div className={this.state.isOpen ? 'mfb mfb-window-overlay' : 'mfb'}></div>
+        { this.props.overlay ? <div className={this.state.isOpen ? 'mfb mfb-window-overlay' : 'mfb'}></div> : null }
         <ul className={classes}
             data-mfb-toggle={this.props.method}
             data-mfb-state={this.state.isOpen ? 'open' : 'closed'}>
