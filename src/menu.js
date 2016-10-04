@@ -109,16 +109,18 @@ var Menu = React.createClass({
   },
 
   componentDidMount: function componentDidMount() {
-    let overlayElement = document.getElementById('mfb').getElementsByClassName('mfb')[0];
-    let that = this;
-    overlayElement.onclick = function(e) {
-      e.preventDefault();
-      if (that.state.isOpen) {
-        that.setState({
-          isOpen: false
-        });
-      }
-    };
+    if(this.props.overlay) {
+      let overlayElement = document.getElementById('mfb').getElementsByClassName('mfb')[0];
+      let that = this;
+      overlayElement.onclick = function(e) {
+        e.preventDefault();
+        if (that.state.isOpen) {
+          that.setState({
+            isOpen: false
+          });
+        }
+      };
+    }
   },
 
   render: function() {
