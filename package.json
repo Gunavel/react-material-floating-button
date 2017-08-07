@@ -1,6 +1,6 @@
 {
   "name": "react-mfb-custom",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "React component for a material menu à la Google Inbox and Evernote facilitating keyboard navigation.",
   "author": "Gunavel",
   "contributors": [],
@@ -25,10 +25,11 @@
   },
   "dependencies": {
     "classnames": "^1.2.0",
+    "prop-types": "^15.5.10",
     "react-dom": "^15.3.1"
   },
   "peerDependencies": {
-    "react": "^15.3.1"
+    "react": "^15.5.0"
   },
   "devDependencies": {
     "browserify": "^9.0.3",
